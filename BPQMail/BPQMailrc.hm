@@ -1,0 +1,5 @@
+// Microsoft Developer Studio generated Help ID include file.
+// Used by BPQMailChat.rc
+//
+#define HFILTER_VIA                     0x80ca1778    // IDD_MSGEDIT
+#define HIDC_POLLRMS                    0x80c81394    // IDD_USEREDIT
