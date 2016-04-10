@@ -1,0 +1,30 @@
+
+LIBRARY TFWIN.DLL
+
+EXETYPE	WINDOWS
+
+DESCRIPTION 'WA8DED 16bit interface for BPQ32'
+
+STUB	'WINSTUB.EXE'
+
+CODE	PRELOAD MOVEABLE DISCARDABLE
+DATA	PRELOAD MOVEABLE SINGLE
+
+HEAPSIZE 2000
+
+EXPORTS
+
+ 	TfOpen
+	TfClose
+	TfChck
+	TfGet
+	TfPut
+   WEP 
+    
+IMPORTS
+      kernel.LoadLibraryEx32W
+      kernel.FreeLibrary32W
+      kernel.GetProcAddress32W
+      kernel.GetVDMPointer32W
+      kernel._CallProcEx32W
+      kernel.CallProc32W

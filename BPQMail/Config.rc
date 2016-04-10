@@ -1,0 +1,476 @@
+//Microsoft Developer Studio generated resource script.
+//
+//#include "resrc1.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+//#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "resource.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.K.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+102 DIALOG DISCARDABLE  0, 0, 385, 300
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Configuration"
+FONT 8, "System"
+BEGIN
+END
+
+BBS_CONFIG DIALOG DISCARDABLE  0, 0, 381, 266
+STYLE WS_CHILD
+BEGIN
+    EDITTEXT        1001,115,100,68,14,ES_UPPERCASE
+    LTEXT           "Base Directory",IDC_STATIC,45,143,53,12
+    LTEXT           "BBS Call",IDC_STATIC,45,105,37,12
+    LTEXT           "BBS Appl Number",IDC_STATIC,45,165,61,12
+    LTEXT           "BBS Streams",IDC_STATIC,45,185,49,12
+    EDITTEXT        1002,115,140,212,14
+    EDITTEXT        1003,115,160,29,14
+    EDITTEXT        1004,115,180,29,14
+    LTEXT           "POP3 Port",IDC_STATIC,45,224,49,12
+    LTEXT           "SMTP Port",IDC_STATIC,167,224,49,12
+    EDITTEXT        1005,115,222,29,14
+    EDITTEXT        1006,222,222,29,14
+    LTEXT           "H Route",IDC_STATIC,45,125,37,12
+    EDITTEXT        1007,115,120,119,13,ES_UPPERCASE
+    DEFPUSHBUTTON   "Save",1100,165,245,50,14,BS_CENTER | BS_VCENTER
+    LTEXT           "BBS Call is the base callsign,without SSID. This is not necessarily the same as the Applicaion Callsign defined in the BPQ32 configuration. SYSOPCall is the callsign used by the local console.",
+                    IDC_STATIC,10,5,354,23
+    LTEXT           "The eMail Server Params configure the SMTP and POP3 Servers, which allow a normal Internet email client to get messages from, and post mesages to the BBS. If you don't want to use this, set them to zero.",
+                    IDC_STATIC,10,55,357,18
+    LTEXT           "The Application Number defines which BPQ32 Application gives access to the BBS. Note this a the APPLNumber (1-8) not an Appication Mask, as uses in many BPQ32 programs.",
+                    IDC_STATIC,10,30,353,18
+    LTEXT           "BBS Call",IDC_STATIC,45,103,37,12
+    LTEXT           "SYSOP Call",IDC_STATIC,195,103,42,12
+    EDITTEXT        1008,260,100,68,14,ES_UPPERCASE
+    CONTROL         "Enable Remote Access",1009,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,273,222,91,14
+    LTEXT           "eMail Server Params:",IDC_STATIC,46,205,135,10
+END
+
+CHAT_CONFIG DIALOG DISCARDABLE  0, 0, 381, 266
+STYLE WS_CHILD
+BEGIN
+    LTEXT           "Chat Appl Number",-1,115,109,61,8
+    EDITTEXT        2001,185,106,29,14
+    LTEXT           "Nodes to link to",-1,115,129,53,8
+    EDITTEXT        2002,185,125,87,88,ES_MULTILINE | ES_UPPERCASE | 
+                    ES_AUTOVSCROLL
+    DEFPUSHBUTTON   "Save",2100,172,226,50,14,BS_CENTER | BS_VCENTER
+    LTEXT           "The Application Number defines which BPQ32 Application gives access to the Chat Server. Note this a the APPLNumber (1-8) not an Appication Mask, as uses in many BPQ32 programs.",
+                    -1,10,10,353,18
+    LTEXT           "the Nodes to link to box defines which other Chat Nodes should be connected to, or from which connections may be accepted. The format is ALIAS:CALL, eg BPQCHT:G8BPQ-4. Note these must be directly connectable - ie in your NODES table.",
+                    -1,10,30,355,25
+    LTEXT           "The Callsign of the Chat Node is not defined here - It is obtained from the BPQ32 APPLCALL parameter corresponding to the Chat Appl Number.",
+                    -1,10,60,360,25
+END
+
+USEREDIT DIALOG DISCARDABLE  0, 0, 381, 266
+STYLE WS_CHILD
+BEGIN
+    COMBOBOX        5000,7,7,57,80,CBS_SIMPLE | CBS_SORT | CBS_UPPERCASE | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        5001,55,92,96,14,ES_AUTOHSCROLL
+    EDITTEXT        5002,55,111,96,14,ES_AUTOHSCROLL
+    EDITTEXT        5003,55,130,96,14,ES_AUTOHSCROLL
+    EDITTEXT        5004,55,151,162,14,ES_UPPERCASE | ES_AUTOHSCROLL
+    CONTROL         "BBS",5005,"Button",BS_AUTOCHECKBOX | BS_LEFT | 
+                    WS_TABSTOP,72,9,57,10
+    CONTROL         "PMS",1065,"Button",BS_AUTOCHECKBOX | BS_LEFT | 
+                    WS_TABSTOP,72,21,57,10
+    CONTROL         "Sysop",5007,"Button",BS_AUTOCHECKBOX | BS_LEFT | 
+                    WS_TABSTOP,72,33,57,10
+    CONTROL         "Expert",5008,"Button",BS_AUTOCHECKBOX | BS_LEFT | 
+                    WS_TABSTOP,72,45,57,10
+    CONTROL         "Excluded",5009,"Button",BS_AUTOCHECKBOX | BS_LEFT | 
+                    WS_TABSTOP,72,57,57,10
+    PUSHBUTTON      "Add user",5100,5,175,42,14,BS_CENTER | BS_VCENTER
+    PUSHBUTTON      "Delete user",5101,50,175,42,14,BS_CENTER | BS_VCENTER
+    LTEXT           "Name",-1,7,94,35,14
+    LTEXT           "Password",-1,7,112,35,14
+    LTEXT           "Location",-1,7,131,35,14
+    LTEXT           "Home BBS",-1,5,150,40,14
+    EDITTEXT        1073,5,5,57,14,ES_UPPERCASE
+    PUSHBUTTON      "Save",5102,95,175,42,14,BS_CENTER | BS_VCENTER
+END
+
+ISP_CONFIG DIALOG DISCARDABLE  26, 5, 381, 266
+STYLE WS_CHILD | WS_VISIBLE
+BEGIN
+    EDITTEXT        3001,95,110,100,19
+    LTEXT           "SMTP Server",-1,10,132,53,13
+    LTEXT           "The system relies on having an email domain which supports forwarding of all email addresses to a fixed mailbox. For example, I could register domain mycall.org.uk, and have any mail sent to anyone@mycall.org.uk forwarded to  mymailbox@myisp.com",
+                    1,10,34,349,25
+    LTEXT           "POP3 Server",-1,10,152,61,13
+    LTEXT           "ISP Account Name",-1,10,172,63,13
+    EDITTEXT        3002,95,130,148,19
+    EDITTEXT        3004,95,150,147,19
+    EDITTEXT        3006,95,170,147,19
+    LTEXT           "Port",-1,250,152,18,13
+    LTEXT           "Port",-1,250,132,19,13
+    EDITTEXT        3005,275,150,29,19
+    EDITTEXT        3003,275,130,29,19
+    LTEXT           "This page configures the BBS <> Internet Mail Gateway. The Gateway allows local users to send messages to Internet emal addresses, and get replies from those massages",
+                    -1,10,10,353,20
+    LTEXT           "My Domain",-1,10,112,51,7
+    LTEXT           "ISP Account Password",-1,10,192,80,13
+    EDITTEXT        3007,95,190,147,19,ES_PASSWORD
+    LTEXT           "POP3 Poll Interval (Seconds)",-1,10,212,80,18
+    EDITTEXT        3008,95,210,29,19
+    LTEXT           "WARNING This feature my be illegal in some administrations. Make sure your authorities permit forwarding mail from the Amateur Service before enabling it",
+                    -1,10,64,348,15
+    CONTROL         "Enable Internet Gateway",3000,"Button",BS_AUTOCHECKBOX | 
+                    BS_LEFTTEXT | BS_LEFT | WS_TABSTOP,10,89,96,15
+    DEFPUSHBUTTON   "Save",3100,165,240,57,17,BS_CENTER | BS_VCENTER
+END
+
+FORWARDING DIALOG DISCARDABLE  0, 0, 381, 266
+STYLE WS_CHILD | WS_VISIBLE
+BEGIN
+    LTEXT           "BBS",-1,80,40,57,13
+    COMBOBOX        4001,75,55,66,60,CBS_SIMPLE | CBS_OEMCONVERT | CBS_SORT | 
+                    CBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Connect Script",-1,80,130,57,13
+    EDITTEXT        4002,75,145,66,60,ES_MULTILINE | ES_UPPERCASE | 
+                    ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN
+    LTEXT           "To Calls:",-1,165,40,57,13
+    EDITTEXT        4003,165,55,66,60,ES_MULTILINE | ES_UPPERCASE | 
+                    ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN
+    EDITTEXT        4005,165,145,101,60,ES_MULTILINE | ES_UPPERCASE | 
+                    ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN
+    LTEXT           "Hierarchical Routes",-1,165,130,70,12
+    LTEXT           "AT Calls:",-1,245,40,57,13
+    EDITTEXT        4004,245,55,66,60,ES_MULTILINE | ES_UPPERCASE | 
+                    ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN
+    CONTROL         "Enable Forwarding",4000,"Button",BS_AUTOCHECKBOX | 
+                    BS_LEFT | WS_TABSTOP,75,215,111,8
+    CONTROL         "Request Reverse Forwarding",4006,"Button",
+                    BS_AUTOCHECKBOX | BS_LEFT | WS_TABSTOP,75,230,109,8
+    DEFPUSHBUTTON   "Save",4100,165,245,57,17,BS_CENTER | BS_VCENTER
+    LTEXT           "Forwarding Rules are define here. BBS Records are created by setting the BBS flag on a User Record.",
+                    -1,5,5,368,10
+    LTEXT           "The Enable Forwarding flag allows you to temporarily disable forwarding without losing the messages to be forwarded. ",
+                    -1,5,20,373,8
+END
+
+5051 DIALOG DISCARDABLE  176, 132, 129, 68
+STYLE DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_THICKFRAME
+CAPTION "User Edit"
+BEGIN
+    DEFPUSHBUTTON   "Ok",0,50,40,36,17,BS_CENTER | BS_VCENTER
+    LTEXT           "Label0",5050,5,10,117,22
+END
+
+EDITMSG DIALOG DISCARDABLE  26, 5, 381, 266
+STYLE WS_CHILD | WS_VISIBLE
+BEGIN
+    RTEXT           "Msg",-1,7,7,19,8
+    LISTBOX         0,33,7,65,81,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_TABSTOP
+    EDITTEXT        6001,33,95,65,14,ES_UPPERCASE | ES_AUTOHSCROLL
+    EDITTEXT        6002,33,111,65,14,ES_UPPERCASE | ES_AUTOHSCROLL
+    EDITTEXT        6003,33,128,65,14,ES_UPPERCASE | ES_AUTOHSCROLL
+    EDITTEXT        6004,33,145,177,14,ES_UPPERCASE | ES_AUTOHSCROLL
+    EDITTEXT        6005,33,162,177,14,ES_AUTOHSCROLL
+    CONTROL         "Data",6,"Button",BS_AUTOCHECKBOX | BS_LEFT | WS_TABSTOP,
+                    110,15,31,10
+    CONTROL         "A",7,"Button",BS_AUTORADIOBUTTON | BS_LEFT,131,30,17,10
+    CONTROL         "B",8,"Button",BS_AUTORADIOBUTTON | BS_LEFT,131,41,17,10
+    CONTROL         "P",9,"Button",BS_AUTORADIOBUTTON | BS_LEFT,131,52,17,10
+    CONTROL         "T",10,"Button",BS_AUTORADIOBUTTON | BS_LEFT,131,63,17,
+                    10
+    LTEXT           "Status",-1,165,15,20,8
+    CONTROL         "$",11,"Button",BS_AUTORADIOBUTTON | BS_LEFT,191,14,19,
+                    10
+    CONTROL         "N",12,"Button",BS_AUTORADIOBUTTON | BS_LEFT,191,24,19,
+                    10
+    CONTROL         "Y",13,"Button",BS_AUTORADIOBUTTON | BS_LEFT,191,34,19,
+                    10
+    CONTROL         "F",14,"Button",BS_AUTORADIOBUTTON | BS_LEFT,191,44,19,
+                    10
+    CONTROL         "X",15,"Button",BS_AUTORADIOBUTTON | BS_LEFT,191,54,19,
+                    10
+    CONTROL         "K",16,"Button",BS_AUTORADIOBUTTON | BS_LEFT,191,64,19,
+                    10
+    CONTROL         "A",17,"Button",BS_AUTORADIOBUTTON | BS_LEFT,191,74,19,
+                    10
+    EDITTEXT        6018,145,95,65,14,ES_AUTOHSCROLL
+    EDITTEXT        6019,145,111,65,14,ES_AUTOHSCROLL
+    EDITTEXT        6020,145,128,65,14,ES_UPPERCASE | ES_AUTOHSCROLL
+    RTEXT           "From",-1,7,98,19,8
+    RTEXT           "BID",-1,7,114,19,8
+    RTEXT           "To",-1,7,132,19,8
+    RTEXT           "Via",-1,7,150,19,8
+    RTEXT           "Title",-1,7,167,19,8
+    RTEXT           "Sent",-1,109,95,32,8
+    RTEXT           "Received",-1,109,113,32,8
+    RTEXT           "Size",-1,109,130,32,8
+    LTEXT           "Type",-1,109,30,17,8
+    CONTROL         "",25,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,7,35,10
+    CONTROL         "",26,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,17,35,10
+    CONTROL         "",27,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,27,35,10
+    CONTROL         "",28,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,37,35,10
+    CONTROL         "",29,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,47,35,10
+    CONTROL         "",30,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,57,35,10
+    CONTROL         "",31,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,67,35,10
+    CONTROL         "",32,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,77,35,10
+    CONTROL         "",33,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,87,35,10
+    CONTROL         "",34,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,97,35,10
+    CONTROL         "",35,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,107,35,10
+    CONTROL         "",36,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,117,35,10
+    CONTROL         "",37,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,127,35,10
+    CONTROL         "",38,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,137,35,10
+    CONTROL         "",39,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,147,35,10
+    CONTROL         "",40,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,157,35,10
+    CONTROL         "",41,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,167,35,10
+    CONTROL         "",42,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,177,35,10
+    CONTROL         "",43,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,187,35,10
+    CONTROL         "",44,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,221,197,35,10
+    CONTROL         "",45,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,7,35,10
+    CONTROL         "",46,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,17,35,10
+    CONTROL         "",47,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,27,35,10
+    CONTROL         "",48,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,37,35,10
+    CONTROL         "",49,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,47,35,10
+    CONTROL         "",50,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,57,35,10
+    CONTROL         "",51,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,67,35,10
+    CONTROL         "",52,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,77,35,10
+    CONTROL         "",53,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,87,35,10
+    CONTROL         "",54,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,97,35,10
+    CONTROL         "",55,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,107,35,10
+    CONTROL         "",56,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,117,35,10
+    CONTROL         "",57,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,127,35,10
+    CONTROL         "",58,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,137,35,10
+    CONTROL         "",59,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,147,35,10
+    CONTROL         "",60,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,157,35,10
+    CONTROL         "",61,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,167,35,10
+    CONTROL         "",62,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,177,35,10
+    CONTROL         "",63,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,187,35,10
+    CONTROL         "",64,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,260,197,35,10
+    CONTROL         "",65,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,7,35,10
+    CONTROL         "",66,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,17,35,10
+    CONTROL         "",67,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,27,35,10
+    CONTROL         "",68,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,37,35,10
+    CONTROL         "",69,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,47,35,10
+    CONTROL         "",70,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,57,35,10
+    CONTROL         "",71,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,67,35,10
+    CONTROL         "",72,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,77,35,10
+    CONTROL         "",73,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,87,35,10
+    CONTROL         "",74,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,97,35,10
+    CONTROL         "",75,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,107,35,10
+    CONTROL         "",76,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,117,35,10
+    CONTROL         "",77,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,127,35,10
+    CONTROL         "",78,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,137,35,10
+    CONTROL         "",79,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,147,35,10
+    CONTROL         "",80,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,157,35,10
+    CONTROL         "",81,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,167,35,10
+    CONTROL         "",82,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,177,35,10
+    CONTROL         "",83,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,187,35,10
+    CONTROL         "",84,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,299,197,35,10
+    CONTROL         "",85,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,7,35,10
+    CONTROL         "",86,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,17,35,10
+    CONTROL         "",87,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,27,35,10
+    CONTROL         "",88,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,37,35,10
+    CONTROL         "",89,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,47,35,10
+    CONTROL         "",90,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,57,35,10
+    CONTROL         "",91,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,67,35,10
+    CONTROL         "",92,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,77,35,10
+    CONTROL         "",93,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,87,35,10
+    CONTROL         "",94,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,97,35,10
+    CONTROL         "",95,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,107,35,10
+    CONTROL         "",96,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,117,35,10
+    CONTROL         "",97,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,127,35,10
+    CONTROL         "",98,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,137,35,10
+    CONTROL         "",99,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,147,35,10
+    CONTROL         "",100,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,157,35,10
+    CONTROL         "",101,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,167,35,10
+    CONTROL         "",102,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,177,35,10
+    CONTROL         "",103,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,187,35,10
+    CONTROL         "",104,"Button",BS_AUTO3STATE | BS_LEFT | BS_PUSHLIKE | 
+                    WS_TABSTOP,339,197,35,10
+END
+
+MAINT DIALOG DISCARDABLE  26, 5, 381, 266
+STYLE WS_CHILD | WS_VISIBLE
+BEGIN
+    LTEXT           "This sets the parameters for deleting old messages. Specify length of time (in days) for messages to be kept before bing deleted. You can also specify whether to keep copies (archive) messages that have been deleted.",
+                    IDC_STATIC,10,5,361,22
+    LTEXT           "Read",IDC_STATIC,90,45,46,10
+    EDITTEXT        IDM_PR,155,45,20,10,ES_CENTER | ES_AUTOHSCROLL | 
+                    ES_NUMBER
+    LTEXT           "Unread",IDC_STATIC,90,60,46,10
+    EDITTEXT        IDM_PUR,155,60,20,10,ES_CENTER | ES_AUTOHSCROLL | 
+                    ES_NUMBER
+    LTEXT           "Forwarded",IDC_STATIC,90,75,46,10
+    EDITTEXT        IDM_PF,155,75,20,10,ES_CENTER | ES_AUTOHSCROLL | 
+                    ES_NUMBER
+    LTEXT           "Not Forwarded",IDC_STATIC,90,90,49,10
+    EDITTEXT        IDM_PNF,155,90,20,10,ES_CENTER | ES_AUTOHSCROLL | 
+                    ES_NUMBER
+    LTEXT           "Forwarded",IDC_STATIC,195,45,49,10
+    EDITTEXT        IDM_BF,255,45,20,10,ES_CENTER | ES_AUTOHSCROLL | 
+                    ES_NUMBER
+    LTEXT           "Not Forwarded",IDC_STATIC,195,60,49,10
+    EDITTEXT        IDM_BNF,255,60,20,10,ES_CENTER | ES_AUTOHSCROLL | 
+                    ES_NUMBER
+    GROUPBOX        "Personals",IDC_STATIC,80,35,108,99
+    GROUPBOX        "Bulletins",IDC_STATIC,190,35,103,100
+    LTEXT           "The followiing boxes allow you to specify different values for different Bulletin origins and destinationss.",
+                    IDC_STATIC,25,140,361,8
+    LTEXT           "Specify Call, Lifetime, eg ALL,10",IDC_STATIC,25,150,
+                    361,8
+    LTEXT           "From",IDC_STATIC,50,165,40,12
+    EDITTEXT        IDM_LTFROM,30,180,87,55,ES_MULTILINE | ES_UPPERCASE | 
+                    ES_AUTOVSCROLL | ES_WANTRETURN
+    LTEXT           "To",IDC_STATIC,175,165,27,12
+    EDITTEXT        IDM_LTTO,140,180,87,55,ES_MULTILINE | ES_UPPERCASE | 
+                    ES_AUTOVSCROLL | ES_WANTRETURN
+    LTEXT           "At",IDC_STATIC,295,165,15,12
+    EDITTEXT        IDM_LTAT,255,180,87,54,ES_MULTILINE | ES_UPPERCASE | 
+                    ES_AUTOVSCROLL | ES_WANTRETURN
+    DEFPUSHBUTTON   "Save",IDM_MAINTSAVE,175,250,50,14,BS_CENTER | 
+                    BS_VCENTER
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resrc1.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""resource.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.K.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

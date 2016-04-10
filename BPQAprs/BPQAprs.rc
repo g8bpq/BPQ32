@@ -1,0 +1,229 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.K.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""..\\CommonSource\\Versions.h""\r\n"
+    "#include ""..\\StdVer.inc""\r\n"
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_BASICSETUP DIALOG DISCARDABLE  0, 0, 339, 274
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "BPQAprs Basic Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "Save",IDOK,112,247,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,175,247,50,14
+    LTEXT           "Msg Retry Count",IDC_STATIC,2,30,60,12,SS_CENTERIMAGE
+    LTEXT           "Msg Retry Interval",IDC_STATIC,95,30,65,12,
+                    SS_CENTERIMAGE
+    EDITTEXT        IDC_RETRIES,67,30,24,12,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_RETRYTIME,163,30,20,12,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "IS Filter",IDC_STATIC,2,72,60,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_FILTER,68,72,262,12,ES_AUTOHSCROLL
+    LTEXT           "Filename",IDC_STATIC,29,137,33,12,SS_CENTERIMAGE
+    CONTROL         "Send UI-View Compatible WX FIle",IDC_SENDWX,"Button",
+                    BS_AUTOCHECKBOX | BS_LEFTTEXT | WS_TABSTOP,2,117,130,10
+    EDITTEXT        IDC_WXFILE,78,135,212,12,ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "Beacon Text",IDC_STATIC,28,151,42,12,SS_CENTERIMAGE
+    LTEXT           "Interval",IDC_STATIC,35,166,33,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_WXTEXT,78,150,209,12,ES_AUTOHSCROLL | WS_DISABLED
+    EDITTEXT        IDC_WXINTERVAL,78,166,20,12,ES_AUTOHSCROLL | ES_NUMBER | 
+                    WS_DISABLED
+    PUSHBUTTON      "Browse",IDC_FILE,297,135,33,12,WS_DISABLED
+    LTEXT           "Port List",IDC_STATIC,105,166,33,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_WXPORTS,138,166,81,12,ES_AUTOHSCROLL | WS_DISABLED
+    CONTROL         "Suppress stations with zero Lat/Lon",IDC_SUPZERO,"Button",
+                    BS_AUTOCHECKBOX | BS_LEFTTEXT | WS_TABSTOP,2,96,130,10
+    CONTROL         "Default to no tracks",IDC_NOTRACKS,"Button",
+                    BS_AUTOCHECKBOX | BS_LEFTTEXT | WS_TABSTOP,95,10,75,10
+    LTEXT           "Track Expire Time",IDC_STATIC,2,8,59,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_EXPIRETRACKS,66,8,27,12,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "Use Local Time",IDC_LOCALTIME,"Button",BS_AUTOCHECKBOX | 
+                    BS_LEFTTEXT | WS_TABSTOP,146,96,75,10
+    LTEXT           "Filename",IDC_STATIC,8,211,33,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_JPEGFILE,57,211,212,12,ES_AUTOHSCROLL
+    LTEXT           "Interval (Seconds)",IDC_STATIC,100,193,62,12,
+                    SS_CENTERIMAGE
+    EDITTEXT        IDC_JPEGINTERVAL,167,193,20,12,ES_AUTOHSCROLL | 
+                    ES_NUMBER
+    PUSHBUTTON      "Browse",IDC_FILE2,275,211,33,12
+    CONTROL         "Create JPEG of display",IDC_CREATEJPEG,"Button",
+                    BS_AUTOCHECKBOX | BS_LEFTTEXT | WS_TABSTOP,2,194,84,10
+    LTEXT           "Send ACKS and Replies using received path",IDC_STATIC,2,
+                    48,150,12,SS_CENTERIMAGE | NOT WS_VISIBLE
+    CONTROL         "",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | 
+                    WS_TABSTOP,163,50,16,8
+    CONTROL         "Use Decay Retry Algorithm",IDC_CHECK2,"Button",
+                    BS_AUTOCHECKBOX | BS_LEFTTEXT | NOT WS_VISIBLE | 
+                    WS_TABSTOP,195,32,101,10
+END
+
+APRSMSGS DIALOG DISCARDABLE  100, 100, 467, 275
+STYLE WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+CAPTION "Dialog"
+CLASS "APRSMSGS"
+FONT 9, "Fixedsys"
+BEGIN
+    LTEXT           "To",IDC_TOLABEL,0,216,9,8
+    COMBOBOX        IDC_TOCALL,12,215,45,50,CBS_DROPDOWN | CBS_SORT | 
+                    CBS_UPPERCASE | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Text",IDC_TEXTLABEL,60,216,19,8
+    EDITTEXT        IDC_INPUT,80,215,222,12,ES_AUTOHSCROLL
+    CONTROL         "Show only my Messages",IDC_MYMSGS,"Button",
+                    BS_AUTOCHECKBOX | BS_LEFTTEXT,5,5,96,8
+    CONTROL         "Beep instead of Popup",IDC_MSGBEEP,"Button",
+                    BS_AUTOCHECKBOX | BS_LEFTTEXT,108,5,97,8
+    CONTROL         "List1",IDC_LIST1,"SysListView32",LVS_REPORT | WS_BORDER,
+                    9,26,396,69
+    CONTROL         "List2",IDC_LIST2,"SysListView32",LVS_REPORT | WS_BORDER,
+                    8,103,396,83
+    PUSHBUTTON      "Clear Screen",IDC_CLEARMSGS,223,3,56,10
+    LTEXT           "Path",IDC_TEXTLABEL2,307,216,19,8,NOT WS_VISIBLE
+    EDITTEXT        IDC_PATH,329,215,76,12,ES_AUTOHSCROLL | NOT WS_VISIBLE
+END
+
+APRSSTNS DIALOG DISCARDABLE  100, 100, 505, 275
+STYLE WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+CAPTION "Dialog"
+CLASS "APRSSTNS"
+FONT 9, "Fixedsys"
+BEGIN
+END
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  22, 17, 234, 180
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About"
+FONT 8, "System"
+BEGIN
+    ICON            107,BPQICON,14,9,20,20
+    LTEXT           "G8BPQ APRS Client/I-Gate",-1,39,15,86,8,SS_NOPREFIX | 
+                    NOT WS_GROUP
+    LTEXT           "Version",-1,128,15,28,8,NOT WS_GROUP
+    LTEXT           "0.0.0.0",ABOUT_VERSION,156,15,69,8,NOT WS_GROUP
+    CTEXT           "Copyright © 2012 John Wiseman G8BPQ",-1,17,28,180,8,NOT 
+                    WS_GROUP
+    DEFPUSHBUTTON   "OK",IDOK,93,159,30,11,BS_CENTER | BS_VCENTER | WS_GROUP
+    LTEXT           "APRS® is a registered trademark of Bob Bruninga.",-1,27,
+                    43,173,13,NOT WS_GROUP
+    LTEXT           "  Includes code from libpng (http://www.libpng.org",-1,
+                    28,58,180,8,NOT WS_GROUP
+    LTEXT           "             libpng version 1.2.8 - December 3, 2004\n    Copyright (c) 1998-2004 Glenn Randers-Pehrson\n    Copyright (c) 1996-1997 Andreas Dilger\n    Copyright (c) 1995-1996 Guy Eric Schalnat, Group 42, Inc.\n",
+                    -1,15,73,200,40,NOT WS_GROUP
+    LTEXT           "Mapping from OpenStreetMap (http://openstreetmap.org)",
+                    -1,25,128,189,10,NOT WS_GROUP
+    LTEXT           "Includes code from zlib (http://zlib.net)",-1,44,111,
+                    135,10,NOT WS_GROUP
+    LTEXT           "Map Tiles Courtesy of MapQuest (www.mapquest.com)",-1,
+                    29,139,181,10,NOT WS_GROUP
+END
+
+STNPOPUP DIALOG DISCARDABLE  0, 0, 231, 70
+STYLE DS_MODALFRAME | WS_POPUP
+CLASS "STNPOPUP"
+FONT 9, "Fixedsys"
+BEGIN
+    CONTROL         "List1",IDC_LIST1,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_NOCOLUMNHEADER | WS_BORDER,0,0,231,
+                    70
+END
+
+IDD_CHATCOLCONFIG DIALOG DISCARDABLE  0, 0, 114, 51
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Colour Configuration"
+FONT 8, "System"
+BEGIN
+    DEFPUSHBUTTON   "Save",IDOK,8,27,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,62,28,45,14
+    COMBOBOX        IDC_CHATCOLOURS,7,5,100,60,CBS_DROPDOWNLIST | 
+                    CBS_OWNERDRAWFIXED | WS_VSCROLL | WS_TABSTOP
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_BASICSETUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 2
+        RIGHTMARGIN, 330
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 269
+    END
+
+    "STNPOPUP", DIALOG
+    BEGIN
+        RIGHTMARGIN, 186
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.K.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#include "..\CommonSource\Versions.h"
+#include "..\StdVer.inc"
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

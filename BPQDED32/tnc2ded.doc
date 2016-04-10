@@ -1,0 +1,576 @@
+                          AX.25 Version 2
+                           Multi-channel
+                           TNC  FIRMWARE
+
+                           (version 2.5)
+
+             Copyright 1987, 1989 Ronald E. Raikes (WA8DED)
+
+      This firmware supports the full AX.25  link-layer  protocol,
+ version 2.0 as described in the ARRL specification dated  October
+ 1984,  as  well  as   the   pre-existing   version   1.x.    This
+ implementation supports multiple  simultaneous  link  connections
+ with either version protocol.  This release has been compiled for
+ a maximum of four connections, although any reasonable number  of
+ connections is possible by changing  one  MAXLNK  symbol  in  the
+ source header file.  The  firmware  is  contained  in  one  26256
+ EPROM, and is intended to  be  installed  in  a  TAPR  TNC-2  (or
+ equivalent, such as the MFJ-1270 or AEA  PK-80)  in  socket  U23.
+ RAM memory is automatically sized, supporting both  16k  and  32k
+ configurations.
+
+      Commands and information are sent to the tnc in the form  of
+ lines.  Lines may be up to 256  characters  long,  including  the
+ terminating CARRIAGE RETURN.  If the 256th character  entered  is
+ not a CARRIAGE RETURN, it will be discarded and a BELL  character
+ will be output to the terminal.  BACKSPACE and DELETE may be used
+ to remove single characters from the line.  The entire  line  may
+ be permanently backspaced out by entering a CONTROL-U or CONTROL-
+ X.  A CONTROL-R will temporarily backspace out any  partial  line
+ to allow incoming frames to be  displayed.   A  second  CONTROL-R
+ will then restore  the  line  to  allow  continuation  of  entry.
+ During the time a partial line is saved, only  another  CONTROL-R
+ will be  accepted  from  the  keyboard  (with  the  exception  of
+ xon/xoff, of course).  BELL characters are echoed to the terminal
+ when entered or  removed.   Lines  which  begin  with  an  ESCAPE
+ character (echoed as '* ') are interpreted  as  commands.   If  a
+ command is issued with no parameter, the current  value  of  that
+ commands parameter is displayed.  Lines without a leading  ESCAPE
+ character are sent as information.
+
+      The firmware provides the operator  with  five  virtual  tnc
+ channels, numbered 0 to 4.  The terminal is logically attached to
+ only one of these  channels  at  a  time,  selected  by  the  'S'
+ command.  Information sent on channel 0 is always  unproto.   The
+ unproto path may be set by issuing a 'C' command when  channel  0
+ is selected.  Channels 1 - 4 are also unproto  if  they  are  not
+ currently connected.  Outgoing connect requests may be issued  on
+ any unconnected channel, while incoming connect requests will use
+ the first available  channel  (provided  the  maximum  number  of
+ connections set  by  the  'Y'  command  will  not  be  exceeded).
+ Information received on a connected channel that is not currently
+ selected will remain queued there until that channel is selected.
+ The STA led indicates there is queued information,  and  the  'L'
+ command may be used to  determine  the  channel(s)  where  it  is
+ located.  Information  for  transmission  is  sent  only  to  the
+ currently selected channel.  When a connection is ended, received
+ information will remain queued until it has been displayed.  If a
+ new digipeater path  is  desired  while  a  connection  is  being
+ established or is in progress, it is not necessary to  disconnect
+ first.  Simply re-issuing the 'C' command will  re-establish  the
+ connection via the new path without any loss of information.
+
+      Which protocol version is used to initiate a  connection  is
+ controlled by the 'V' command, but the version  will  be  changed
+ automatically, if necessary, to conform to the version of the tnc
+ responding.  Version 2 protocol is more  effecient  in  terms  of
+ network  throughput  and   loading,   especially   under   severe
+ conditions.  Version 2 protocol is the default and should be used
+ whenever possible.  When version 2 protocol is used, a  watch-dog
+ timer is started whenever information is not  being  transmitted.
+ If the tnc remains idle for three minutes, it will poll the other
+ tnc to determine  if  the  link  is  still  established.   If  no
+ response is received after the number of tries  set  by  the  'N'
+ command, a link failure is reported.  This  procedure  will  also
+ detect the case where someone connects and  then  leaves  without
+ disconnecting.  Changing the protocol version during a connection
+ is not permitted.
+
+      The 'F', 'I', 'N', 'O', and 'V' commands maintain individual
+ parameters for each channel.  The value stored in  channel  0  is
+ used to initialize channels 1 - 4  upon  power  up,  and  to  re-
+ initialize channels 1 - 4 after a disconnect.   This  allows  the
+ values to be changed independently on each channel, prior to  and
+ during a connection, and then automatically revert  back  to  the
+ standard values when the connection  is  ended.   A  'D'  command
+ issued on a disconnected channel 1 - 4  will  also  re-initialize
+ that channel.
+
+      Frame monitoring is controlled  by  the  'M'  command.   The
+ command parameter determines the types of frames  monitored,  and
+ is a list of desired  frames  chosen  from  the  letters  in  the
+ following table:
+
+      LTR       FRAME
+      ---       -----
+       N        None
+       I        I frames
+       U        UI frames
+       S        Supervisory frames
+       C        Monitor while connected
+       +        Call signs to be included (maximum of 8)
+       -        Call signs to be excluded (maximum of 8)
+
+ The '+' and '-' parameters may not be used together.   If  either
+ is used, it must be the last parameter (followed by one to  eight
+ callsigns, if applicable).  If no list of callsigns is  specified
+ to be included or excluded, all callsigns will be candidates  for
+ monitoring.  Entering a '+' or '-' with no callsigns  will  empty
+ the list.
+
+ An asterisk displayed after a callsign  in  the  digipeater  list
+ indicates the frame was transmitted by that station.  The control
+ field displayed will be one of the following:
+
+      NAME   DESCRIPTION
+      ----   -----------
+      RRa  - Receive Ready
+      RNRa - Receive Not Ready
+      REJa - Reject
+      UI   - Unnumbered Information
+      DM   - Disconnected Mode
+      SABM - Connect Request
+      DISC - Disconnect Request
+      UA   - Unnumbered Acknowledge
+      FRMR - Frame Reject
+      Iab  - Information
+      ?ccH - Unknown
+      a  = Next expected frame number (0 - 7)
+      b  = Frame number of this frame (0 - 7)
+      cc = Hexadecimal value
+
+ In addition, one of the following characters will  be  displayed,
+ reflecting the protocol version, command/response bits,  and  the
+ poll/final bit:
+  (blank) = version 1 frame without poll/final bit
+        ! = version 1 frame with poll/final bit
+        ^ = version 2 command frame without poll bit
+        + = version 2 command frame with poll bit
+        - = version 2 response frame with final bit
+        v = version 2 response frame without final bit
+
+ The protocol identifier field is displayed in hexadecimal
+
+      An unattended mode, controlled by the 'U' command,  provides
+ for sending user supplied text to a connecting station, and  then
+ allows that station to leave a  brief  message.   This  mode  can
+ operate on all channels simultaneously, but in no way limits  the
+ operators ability to interact with one of the connected  channels
+ or  the  ability  to  make  outgoing  connect   requests.    When
+ unattended mode is enabled, link status messages  are  queued  to
+ the associated channel and not output to the terminal unless that
+ channel  is  currently  selected.   Link  status  messages   will
+ therefore  be  displayed  in   chronological   order   with   the
+ information from that channel.  In addition, text supplied by the
+ user with the 'U' command  will  be  sent  to  any  station  that
+ connects.  If channel 0  is  left  selected,  stations  may  then
+ connect and leave messages on channels 1 - 4 (limited by the  'Y'
+ parameter, of course).  The 'L' command may be used to  determine
+ if messages have been left on any channel.  Selecting  a  channel
+ containing messages will cause all link  status  and  information
+ from that channel to be displayed.  If  xon/xoff  handshaking  is
+ enabled, CONTROL-S and CONTROL-Q may  be  used  to  regulate  the
+ output to the terminal to allow comfortable reading.
+
+                          COMMAND SUMMARY
+                          ===============
+
+ COMMAND        PARAMETER               DESCRIPTION
+ -------        ---------               -----------
+   A (1)            0             Auto linefeed disabled
+                    1             Auto linefeed enabled
+   C        Cs1 [Cs2 ... Cs9]     Connect path (0=unproto path)
+   D                              Disconnect
+   E (1)            0             Echo input disabled
+                    1             Echo input enabled
+ * F (4)           1-15           Frame acknowledge (seconds)
+   G               [0]            Get information (host mode)
+                   [1]            Get link status (host mode)
+ * I                Cs            Tnc source callsign
+   JHOST (0)        0             Terminal mode enabled
+                    1             Host mode enabled
+   L              [0-4]           Display channel status
+   M (IU)        NIUSC+-          Monitor mode
+ * N (10)          0-127          Number of tries (0=forever)
+ * O (4)           1-7            Number of outstanding I frames
+   P (64)          0-255          P-persistence value
+   QRES                           Re-start firmware
+   R (1)            0             Repeater disabled
+                    1             Repeater enabled
+   S (0)           0-4            Select channel (0=unproto)
+   T (30)          0-127          Transmitter delay (10ms)
+   U (0)   0      [text]          Unattended mode disabled
+           1      [text]          Unattended mode enabled
+ * V (2)            1             Version 1 protocol initiated
+                    2             Version 2 protocol initiated
+   W (10)          0-127          Slot time interval (10ms)
+   X (1)            0             Transmitter PTT disabled
+                    1             Transmitter PTT enabled
+   Y (4)           0-4            Maximum connections
+   Z (3)            0             Flow disabled, xon/off disabled
+                    1             Flow enabled, xon/off disabled
+                    2             Flow disabled, xon/off enabled
+                    3             Flow enabled, xon/off enabled
+   @   B                          Display number of free buffers
+       D  (0)       0             Full duplex disabled
+                    1             Full duplex enabled
+       S                          Display current link state
+       T2 (100)    0-65535        Timer T2 interval (10ms)
+       T3 (18000)  0-65535        Timer T3 interval (10ms)
+       V  (0)       0             Callsign validation disabled
+                    1             Callsign validation enabled
+    Default values are shown in parenthesis
+
+ *  These commands are applicable to each connection channel
+      (Values set on channel 0 are used upon power up and
+       disconnect to initialize each connection channel)
+
+                        COMMAND DESCRIPTION
+                        ===================
+
+      The 'A' command is used to enable or disable  the  automatic
+ insertion of LINEFEED characters after CARRIAGE RETURN characters
+ to the terminal.
+
+      The 'C' command is used to initiate a link connection.  Note
+ that 'v' or 'via' is not required (but is  allowed)  between  the
+ destination callsign and the digipeater callsigns.  A 'C' command
+ may be  issued  on  a  channel  already  in  use  to  change  the
+ digipeater callsigns, but not the destination  callsign.   A  'C'
+ command issued when channel 0 is selected sets the unproto path.
+
+      The 'D' command is used to initiate  a  link  disconnection.
+ If there is unsent or unacknowledged information  remaining,  the
+ disconnect request frame will not be sent until  all  information
+ has been transmitted and acknowledged.  No additional information
+ will be received after the 'D' command has been issued.  A second
+ 'D' command may be entered  to  force  the  transmission  of  the
+ disconnect request frame before all information has been sent and
+ acknowledged.  A 'D' command issued during the establishment of a
+ link or after a disconnect request  frame  has  been  transmitted
+ will cause an immediate return to the disconnected state.  A  'D'
+ command issued on a disconnected channel will  re-initialize  the
+ connection dependent parameters to the values stored  in  channel
+ 0.
+
+      The 'E' command is used to enable or disable the echoing  of
+ input (commands and information) to the terminal.
+
+      The 'F' command is used to  set  the  frame  acknowledgement
+ interval.  This interval is used to compute the timeout  interval
+ before a packet is retransmitted, using the formula:
+      time (seconds) = frame ack * (2 * number of digipeaters + 1)
+ A separate frame acknowlegement interval value is maintained  for
+ each connection channel.  The value stored in channel 0  is  used
+ to  initialize  each  connection  channel  upon   power   up   or
+ disconnection.
+
+      The 'G' command is used to interrogate virtual tnc  channels
+ when host mode is enabled.  If no  parameter  is  specified,  the
+ next chronological item (information  or  link  status)  will  be
+ returned, provided there is one.   This  command  is  invalid  in
+ terminal  mode.   A  later  section  is  devoted  to  host   mode
+ operation.
+
+      The 'I' command is used to set the tnc source callsign.  The
+ initial value is all blanks.  Changing the  tnc  source  callsign
+ while connected is not permitted.  If the tnc source callsign  is
+ left blank, the tnc will not allow connect  commands  or  unproto
+ transmissions.  The callsign stored  in  channel  0  is  used  to
+ initialize   each   connection   channel   upon   power   up   or
+ disconnection.
+
+      The 'JHOST' command is used to select between  terminal  and
+ host modes.  A later section is devoted to host mode operation.
+
+      The 'L' command is used to display the link status of one or
+ all channels.   Information  displayed  includes  the  connection
+ path, number of receive frames not yet displayed, number of  send
+ frames not yet transmitted, number of transmitted frames not  yet
+ acknowledged, and the  current  retry  count.   A  '+'  character
+ preceeding the channel number indicates  the  currently  selected
+ channel.  Operation of this command when host mode is enabled  is
+ somewhat different, and is described in a later section.
+
+      The 'M' command is used to set the  frame  monitoring  mode.
+ The command parameter determines the types of  frames  monitored,
+ and is a list of desired frames chosen from the  letters  in  the
+ following table:
+
+      LTR       FRAME
+      ---       -----
+       N        None
+       I        I frames
+       U        UI frames
+       S        Supervisory frames
+       C        Monitor while connected
+       +        Call signs to be included (maximum of 8)
+       -        Call signs to be excluded (maximum of 8)
+
+ The '+' and '-' parameters may not be used together.   If  either
+ is used, it must be the last parameter (followed by one to  eight
+ callsigns, if applicable).  If no list of callsigns is  specified
+ to be included or excluded, all callsigns will be candidates  for
+ monitoring.  Entering a '+' or '-' with no callsigns  will  empty
+ the list.
+
+      The 'N' command is used to set the maximum number of times a
+ frame  will  be  transmitted  without  receiving  an  appropriate
+ acknowledgement, before a link failure is  assumed.   A  separate
+ maximum number of tries value is maintained for  each  connection
+ channel.  The value stored in channel 0  is  used  to  initialize
+ each connection channel upon power up or disconnection.
+
+      The 'O' command  is  used  to  set  the  maximum  number  of
+ unacknowledged I frames that may be outstanding at any one  time.
+ A separate maximum number of unacknowledged  I  frames  value  is
+ maintained for each connection  channel.   The  value  stored  in
+ channel 0 is used to  initialize  each  connection  channel  upon
+ power up or disconnection.
+
+      The 'P' command is used to set the p-persistence value.   P-
+ persistence is used  during  simplex  operation  as  a  means  of
+ channel  arbitration.   Whenever   there   are   frames   to   be
+ transmitted, the tnc first waits for a clear channel.   Once  the
+ channel is clear, a random number between 0 and 255 is generated.
+ If the random number is less than or equal to  the  p-persistence
+ value,  the  PTT  line  is  asserted  and  transmission   begins.
+ Otherwise, the tnc delays for the slot time interval set  by  the
+ 'W' command and the entire process is repeated.
+
+      The  'QRES'  command  is  used  to  restart  the   firmware,
+ including re-initialization  of  battery-backed  RAM  to  default
+ parameters.
+
+      The 'R' command is used to enable or disable the digipeating
+ of frames.
+
+      The 'S' command  is  used  to  select  the  current  channel
+ number.
+
+      The 'T' command is used to set the transmitter  keyup  delay
+ interval.  The parameter is specified in 10ms increments.
+
+      The 'U' command is used  to  enable  or  disable  unattended
+ modes.
+
+      The 'V' command is used to select whether  version  1  or  2
+ protocol will be used to initiate a link connection.  A  separate
+ protocol version value is maintained for each connection channel.
+ The value  stored  in  channel  0  is  used  to  initialize  each
+ connection channel upon power up or disconnection.  Interrogating
+ this parameter during a  connection  will  reflect  the  protocol
+ version currently being  used  on  that  channel.   Changing  the
+ protocol version during a connection is not permitted.
+
+      The 'W' command is used to set the p-persistence  slot  time
+ interval.  P-persistence is used during simplex  operation  as  a
+ means of channel arbitration.  Whenever there are  frames  to  be
+ transmitted, the tnc first waits for a clear channel.   Once  the
+ channel is clear, a random number between 0 and 255 is generated.
+ If the random number is less than or equal to  the  p-persistence
+ value set by the 'P'  command,  the  PTT  line  is  asserted  and
+ transmission begins.  Otherwise, the tnc delays for the slot time
+ interval and the entire process is repeated.   The  parameter  is
+ specified in 10ms increments.
+
+      The 'X' command is used to enable or disable the transmitter
+ PTT line.
+
+      The 'Y' command  is  used  to  set  the  maximum  number  of
+ connections that may  established  by  incoming  requests.   This
+ command has no  effect  on  the  operators  ability  to  initiate
+ outgoing connection requests.
+
+      The 'Z' command is used to enable or  disable  flow  control
+ and xon/xoff handshaking to the terminal.   If  flow  control  is
+ enabled, output to the terminal will be inhibited while  entering
+ commands or information.  If flow control is disabled, output  to
+ the terminal will not be restricted.  Flow control  and  xon/xoff
+ handshaking should be disabled during periods in which the tnc is
+ operated without a terminal, to  avoid  suspending  output  which
+ will consume buffers.  If xon/xoff handshaking  is  enabled,  crt
+ scrolling may be stopped and started using CONTROL-S and CONTROL-
+ Q characters.  Flow control  and  xon/xoff  handshaking  are  not
+ performed when host mode is enabled.
+
+      The '@'  command  is  a  software  maintenance  command.   A
+ parameter of 'B' will display the number of  free  buffers.   The
+ 'D' parameter is used to enable or disable full duplex  operation
+ of the HDLC port.  A parameter of 'S' will  display  the  current
+ link state.  The 'T2' parameter is  used  to  set  the  timer  T2
+ interval, just as the 'T3' parameter is used to set the timer  T3
+ interval.  The timer intervals are specified in 10ms  increments.
+ Timer T2 controls  the  amount  of  delay  between  the  time  an
+ information frame is received and the time the resulting response
+ frame  is  sent.   This  delay  allows  multiple  frames  to   be
+ acknowledged with a single response.  Timer T3 is  used  maintain
+ link integrity.  If there is no activity during the T3  interval,
+ the tnc  will  poll  to  verify  the  distant  station  is  still
+ connected.  The 'V'  parameter  is  used  to  enable  or  disable
+ callsign validation.
+
+
+                        HOST MODE OPERATION
+                        ===================
+
+      Host mode is intended to provide a user  interface  suitable
+ for operation under control of a host  processor.   Commands  and
+ information to the tnc, as well as status  and  information  from
+ the tnc, are clearly identified to allow orderly and  unambiguous
+ communication.  To alleviate any need for  hardware  or  software
+ handshaking,  the  tnc  will  not  send  to  the  host  processor
+ unsolicited,  and  all  exchanges  are  limited  to  256   bytes.
+ Information transfers are fully transparent.
+
+      When host mode is enabled, the first byte sent  to  the  tnc
+ must be a channel number.  If  information  is  being  sent,  the
+ second byte must be a binary 0.  If a command is being sent,  the
+ second byte must be a binary 1.   The  third  byte  must  be  the
+ binary length of the actual information or  command,  decremented
+ by 1 (vacuous information or commands are  not  permitted).   The
+ actual  information  or   command   bytes   must   follow   last.
+ Information sent to channel 0 will be sent unproto.   Information
+ sent to an unconnected channel 1 - 4 will be discarded.  The  tnc
+ will respond to both information  and  commands  with  a  channel
+ number first, followed by a binary code of 0, 1, or 2, signalling
+ success or failure.  Codes of 1 or 2 will be followed by  a  null
+ terminated message.  Channels may be  interrogated  for  incoming
+ information or link status by using  the  'G'  command.   Monitor
+ headers and monitor information will always be sent to channel 0,
+ along with connect request link status messages.  All other  link
+ status messages will be sent to the  appropriate  channel,  along
+ with that channels connected information.  In response to  a  'G'
+ command, the tnc  will  respond  with  a  channel  number  first,
+ followed by a binary code of 0 if  nothing  is  available,  or  a
+ binary code of 3 - 7, identifying the bytes that follow.  A  code
+ of  4  indicates  the  monitored  frame  does  not   contain   an
+ information field.  A code of 5  indicates  the  monitored  frame
+ does contain an information field, and the next  'G'  command  on
+ channel 0 will return that information field, preceeded by a code
+ of 6.
+          Host to Tnc
+          -----------
+ CHANNEL   CODE           DESCRIPTION
+ -------   ----           -----------
+    n       0        Information (preceeded by length-1)
+    n       1        Command     (preceeded by length-1)
+
+          Tnc to Host
+          -----------
+ CHANNEL   CODE           DESCRIPTION
+ -------   ----           -----------
+    n       0        Success (nothing follows)
+    n       1        Success (message follows, null terminated)
+    n       2        Failure (message follows, null terminated)
+    n       3        Link Status (null terminated)
+    n       4        Monitor Header (null terminated)
+    n       5        Monitor Header (null terminated)
+    n       6        Monitor Information (preceeded by length-1)
+    n       7        Connect Information (preceeded by length-1)
+
+ Success messages
+ ----------------
+ {channel status}
+ {parameter value}
+ CHANNEL NOT CONNECTED
+
+ Failure messages
+ ----------------
+ INVALID CALLSIGN
+ MESSAGE TOO LONG
+ INVALID PARAMETER
+ INVALID BAUD RATE
+ NO SOURCE CALLSIGN
+ INVALID COMMAND: ?
+ NOT WHILE CONNECTED
+ INVALID VALUE: ?????
+ NO MESSAGE AVAILABLE
+ INVALID CHANNEL NUMBER
+ TNC BUSY - LINE IGNORED
+ CHANNEL ALREADY CONNECTED
+ STATION ALREADY CONNECTED
+ INVALID EXTENDED COMMAND: ?
+
+ Link Status messages
+ --------------------
+ BUSY fm {call} via {digipeaters}
+ CONNECTED to {call} via {digipeaters}
+ LINK RESET fm {call} via {digipeaters}
+ LINK RESET to {call} via {digipeaters}
+ DISCONNECTED fm {call} via {digipeaters}
+ LINK FAILURE with {call} via {digipeaters}
+ CONNECT REQUEST fm {call} via {digipeaters}
+ FRAME REJECT fm {call} via {digipeaters} (x y z)
+ FRAME REJECT to {call} via {digipeaters} (x y z)
+ x y z = FRMR information bytes
+
+ Monitor Header format
+ ---------------------
+ fm {call} to {call} via {digipeaters} ctl {name} pid {hex}
+
+ Channel Status format
+ ---------------------
+ a b c d e f
+ a = Number of link status messages not yet displayed
+ b = Number of receive frames not yet displayed
+ c = Number of send frames not yet transmitted
+ d = Number of transmitted frames not yet acknowledged
+ e = Number of tries on current operation
+ f = Link state
+     Possible link states are:
+      0 = Disconnected
+      1 = Link Setup
+      2 = Frame Reject
+      3 = Disconnect Request
+      4 = Information Transfer
+      5 = Reject Frame Sent
+      6 = Waiting Acknowledgement
+      7 = Device Busy
+      8 = Remote Device Busy
+      9 = Both Devices Busy
+     10 = Waiting Acknowledgement and Device Busy
+     11 = Waiting Acknowledgement and Remote Busy
+     12 = Waiting Acknowledgement and Both Devices Busy
+     13 = Reject Frame Sent and Device Busy
+     14 = Reject Frame Sent and Remote Busy
+     15 = Reject Frame Sent and Both Devices Busy
+ NOTE 1:  Only items a and b are displayed for channel 0.
+ NOTE 2:  Only states 0 - 4 are possible if version 1 is in use.
+
+                        DEFAULT PARAMETERS
+                        ==================
+      In some instances, it  may  be  desirable  to  have  default
+ parameters which differ from the standard values.  To allow  easy
+ access, all default parameters have been placed at the  beginning
+ of the EPROM at location 0040H.  The  following  listing  defines
+ the layout of this area:
+
+      TYPE     VALUE          DESCRIPTION
+      ----     -----          -----------
+      BYTE      1BH           COMMAND CHARACTER
+      BYTE    '      ',60H    SOURCE CALLSIGN (SEE NOTE 1)
+      BYTE    '      '        MNEMONIC IDENTIFIER
+      BYTE      04H           MAXIMUM CONNECTIONS
+      BYTE      03H           MONITOR MODE (SEE NOTE 2)
+      BYTE      01H           REPEATER DISABLE/ENABLE
+      BYTE      40H           P-PERSISTENCE VALUE
+      BYTE      0AH           SLOT TIME INTERVAL (10ms)
+      BYTE      1EH           TRANSMITTER DELAY (10ms)
+      BYTE      03H           FLOW CONTROL MODE
+      BYTE      01H           TRANSMITTER PTT DISABLE/ENABLE
+      BYTE      01H           AUTO LINEFEED DISABLE/ENABLE
+      BYTE      01H           ECHO COMMAND LINE DISABLE/ENABLE
+      BYTE      01H           VERSION 2 INITIATED DISABLE/ENABLE
+      BYTE      04H           MAXIMUM UNACKNOWLEDGED FRAMES
+      BYTE      0AH           MAXIMUM TRY COUNT
+      BYTE      04H           FRAME ACKNOWLEDGE INTERVAL
+      BYTE      00H           VALIDATE CALLSIGN ENABLE/DISABLE
+      BYTE      00H           FULL DUPLEX ENABLE/DISABLE
+      BYTE      00H           8-BIT CHARACTER ENABLE/DISABLE
+      WORD      64H           TIMER T2 INTERVAL (10ms)
+      WORD     4650H          TIMER T3 INTERVAL (10ms)
+   DISABLE = 00H / ENABLE = 01H
+
+ NOTE 1:  The secondary station id must be shifted  left  one  bit
+ and or'ed with 60H.
+
+ NOTE 2:  The monitor mode is composed from the following bits:
+      BIT       FRAME
+      ---       -----
+       0        I frames
+       1        UI frames
+       2        Supervisory frames
+       3        Monitor while connected
+
+
