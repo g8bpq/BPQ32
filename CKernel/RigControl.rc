@@ -1,0 +1,112 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "Rigresource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.K.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+RIGCONTROL DIALOG DISCARDABLE  0, 0, 169, 156
+STYLE DS_MODALFRAME | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Rig Control"
+CLASS "RIGCONTROL"
+FONT 8, "FixedSys"
+BEGIN
+END
+
+RIGCONFIG DIALOG DISCARDABLE  0, 0, 432, 206
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Rig Control Configuration"
+FONT 8, "FixedSys"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,223,160,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,278,160,50,14
+    LTEXT           "Port",IDC_STATIC,25,6,25,8
+    LTEXT           "Speed",IDC_STATIC,57,6,35,8
+    LTEXT           "Times",IDC_STATIC,210,6,25,8
+    LTEXT           "Rig Type",IDC_STATIC,109,6,30,8
+    LTEXT           "Addr",IDC_STATIC,147,6,17,8
+    LTEXT           "Frequency / Mode",IDC_STATIC,276,6,65,8
+    LTEXT           "Label",IDC_STATIC,174,6,27,8
+    DEFPUSHBUTTON   "Add Rig",ID_ADDRIG,103,160,50,14
+    DEFPUSHBUTTON   "Add Time Band",ID_ADDTIME,158,160,60,14
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "Rigresource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+RIG_MENU1 MENU DISCARDABLE 
+BEGIN
+    MENUITEM "Config",                      65535
+END
+
+#endif    // English (U.K.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
